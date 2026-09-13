@@ -1,25 +1,40 @@
-# GPT-OSS-20B Red Teaming Project
+# GPT-OSS-20B Red Teaming
 
 ![Kaggle Competition](https://img.shields.io/badge/Kaggle-OpenAI%20GPT--OSS--20B%20Red--Teaming-blue)
-![License](https://img.shields.io/badge/License-MIT%20%26%20CC0-lightgrey)
+Supporting materials for the **YAI_academia** submission to the
+[OpenAI GPT-OSS-20B Red Teaming Competition on Kaggle](https://www.kaggle.com/competitions/openai-gpt-oss-20b-red-teaming).
 
-**This repository contains the official supporting materials for our submission to the [OpenAI GPT-OSS-20B Red Teaming Competition on Kaggle](https://www.kaggle.com/competitions/openai-gpt-oss-20b-red-teaming).**
+## At a glance
+
+| Item | Scope |
+|---|---|
+| Target model | `gpt-oss-20b` |
+| Submission artifacts | Five structured finding JSON files |
+| Executable analyses | Three notebooks currently included |
+| Focus | Context-dependent safety failures and instruction-boundary stress tests |
+| Intended use | Defensive analysis, reproduction, and mitigation design |
 
 
 ---
 
 ## 1. Project Overview
 
-This repository contains the complete findings, analysis, and reproduction code for our submission. Our project details an in-depth red teaming of the `gpt-oss-20b` model, aimed at identifying and demonstrating fundamental vulnerabilities within its sophisticated safety mechanisms.
+This repository preserves the structured findings and the analysis notebooks
+that were included in the public project package. It is a competition artifact,
+not a claim that every finding has a complete standalone reproduction notebook
+in this repository.
 
-Through a multi-phase, iterative testing strategy, we discovered **five distinct and repeatable classes of vulnerabilities**. These findings demonstrate that while the model is robust against simple, direct attacks, it has critical blind spots related to:
+The submission organized observations into five candidate vulnerability
+classes:
 1.  **Policy Blind Spots** in assessing dual-use technologies.
 2.  **Process Gaps** in analyzing the content of technical tasks.
 3.  **Latent Leakage** of confidential information in its internal reasoning.
 4.  **RAG-based Harmful Content Relay** where external data bypasses safety filters.
 5.  **Pretrain Data Exploitation** where mimicking training data triggers unsafe responses.
 
-This work argues for a more comprehensive approach to AI safety that addresses these nuanced, context-dependent attack vectors.
+The artifacts motivate safety evaluation that tests contextual framing,
+transformation tasks, retrieved content, and internal/external response
+boundaries—not only direct harmful requests.
 
 ![Project Banner](./assets/yai_academia_red_team.png)
 
@@ -27,7 +42,9 @@ This work argues for a more comprehensive approach to AI safety that addresses t
 
 ## 2. Key Findings
 
-Our investigation yielded five key classes of vulnerabilities, each detailed in the `/findings` directory and demonstrated in its own notebook.
+Each class has a structured record under `/findings`. Three classes also have a
+notebook in `/notebooks`; the other two remain submission records rather than
+notebook-level reproductions in this public package.
 
 * **Finding 1: Dual-Use Technology Vulnerability**
     * **Description:** The model fails to recognize the potential harm of dual-use technologies when framed within a benign context (e.g., an "artistic light show").
@@ -63,24 +80,22 @@ This repository is organized as follows to ensure clarity and reproducibility.
 │   └── pretrain-data-vulnerability.json
 │
 ├── notebooks/
-│   ├── dual-use-vulnerability.ipynb
-│   ├── obfuscation-vulnerability.ipynb
-│   ├── latent-leakage-vulnerability.ipynb
-│   ├── rag-relay-vulnerability.ipynb
-│   └── pretrain-data-vulnerability.ipynb
+│   ├── dual_use_vulnerability.ipynb
+│   ├── obfuscation_vulnerablility.ipynb
+│   └── latent_leakage_vulnerability.ipynb
 │
 ├── assets/
 │   └── yonsei_red_team_eagle.png
 │
 ├── .gitignore
-├── LICENSE
+├── requirements.txt
 └── README.md
 ```
 
 * **`/findings`**: Contains the five final `.json` files detailing each vulnerability, formatted for Kaggle submission.
-* **`/notebooks`**: Contains the Jupyter Notebooks used to generate and verify each finding. Each notebook corresponds to a finding file.
+* **`/notebooks`**: Contains the three analysis notebooks included in the
+  current public package.
 * **`/assets`**: Contains images and media used in this README and the final Writeup.
-* **`LICENSE`**: The MIT License file governing the code in this repository.
 * **`README.md`**: This file, providing an overview of the project.
 
 ---
@@ -91,8 +106,8 @@ To reproduce our findings, please follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone 
-    cd 
+    git clone https://github.com/cosmic4dev/gpt-oss-red-team_YAI.git
+    cd gpt-oss-red-team_YAI
     ```
 
 2.  **Set up the environment:**
@@ -102,7 +117,6 @@ To reproduce our findings, please follow these steps:
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     pip install -r requirements.txt
     ```
-    *(Note: A `requirements.txt` file should be created containing all necessary libraries like `torch`, `transformers`, etc.)*
 
 3.  **Run the Notebooks:**
     Navigate to the `/notebooks` directory. Each `.ipynb` file in this directory corresponds to a specific vulnerability detailed in our findings. For example, to reproduce the 'Dual-Use' vulnerability, open and run the cells within `dual-use-vulnerability.ipynb`. All notebooks are documented to guide you through each demonstration.
@@ -118,11 +132,16 @@ All experiments were conducted with a strong commitment to ethical guidelines an
 
 ---
 
-## 6. License
+## 6. Evidence and licensing boundary
 
-The code in this repository, including the Jupyter Notebooks, is licensed under the **MIT License**. Please see the `LICENSE` file for details.
-
-The competition submission artifacts (e.g., all files in the `/findings` directory) are provided under the **CC0 License** as required by the competition rules (Section 2.10.a).
+- Findings are preserved as competition submission artifacts; readers should
+  inspect each JSON record and notebook before treating a class as independently
+  reproduced.
+- Harmful examples should remain redacted or handled in a controlled research
+  environment.
+- This repository currently has no repository-level `LICENSE` file. No blanket
+  open-source permission is implied until the team adds one and confirms the
+  applicable competition terms.
 
 ---
 
@@ -134,4 +153,3 @@ This project was conducted by the **YAI_academia** team from Yonsei University.
 * Hyunjin Cho
 * Heejae Chon
 * Youngju Lee
-

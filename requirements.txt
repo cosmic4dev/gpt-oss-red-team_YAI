@@ -1,0 +1,5 @@
+jupyter>=1.0
+openai-harmony
+pandas>=2.0
+torch>=2.1
+transformers>=4.45
